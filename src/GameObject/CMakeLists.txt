@@ -7,6 +7,20 @@ add_library(
   GameObject.cpp
         Background.hpp
         Background.cpp
+        Plant.hpp
+        Plant.cpp
+            Sunflower.hpp
+            Sunflower.cpp
+        SunProducer.hpp
+        SunProducer.cpp
+        PlantingSpot.hpp
+        PlantingSpot.cpp
+        SunflowerSeed.hpp
+        SunflowerSeed.cpp
+        HandObject.hpp
+        HandObject.cpp
+        Sun.hpp
+        Sun.cpp
 )
 
 target_link_libraries(

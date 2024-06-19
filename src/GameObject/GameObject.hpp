@@ -12,19 +12,25 @@ class GameObject : public ObjectBase, public std::enable_shared_from_this<GameOb
 public:
     using std::enable_shared_from_this<GameObject>::shared_from_this; // Use shared_from_this() instead of "this".
 
-    GameObject(int imageID, int x, int y, LayerID layer, int width, int height, AnimID animID);
+    GameObject(int imageID, int x, int y, LayerID layer, int width, int height, AnimID animID, pGameWorld gameWorld);
     GameObject(const GameObject& other) = delete;
     GameObject(GameObject&& other) = delete;
     GameObject& operator=(const GameObject& other) = delete;
     GameObject& operator=(GameObject&& other) = delete;
-    ~GameObject() = default;
+    ~GameObject() override = default;
 
-    virtual void Update() override = 0;
-    virtual void OnClick() override = 0;
+    void Update() override = 0;
+    void OnClick() override = 0;
 
-    virtual bool operator==(const ObjectBase& other) override;
+    void Die();
 
+    bool GetDead();
+
+    bool operator==(const ObjectBase& other) override;
+protected:
+    pGameWorld gameWorld;
 private:
+    bool isDead = false;
 };
 
 #endif // !GAMEOBJECT_HPP__

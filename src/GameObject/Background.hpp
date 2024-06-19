@@ -5,7 +5,7 @@
 
 class Background : public GameObject {
 public:
-    Background(int imageID, int x, int y, LayerID layer, int width, int height, AnimID animID);
+    Background(pGameWorld gameWorld);
     Background(const Background& other) = delete;
     Background(Background&& other) = delete;
     Background& operator=(const Background& other) = delete;
