@@ -2,7 +2,7 @@
 #include "GameWorld.hpp"
 
 Sun::Sun(int x, int y, pGameWorld gameWorld, bool plantProduced) :
-    GameObject(IMGID_SUN, x, y, LAYER_SUN, 80, 80, ANIMID_IDLE_ANIM, gameWorld), plantProduced(plantProduced) {
+    GameObject(IMGID_SUN, x, y, LAYER_SUN, 80, 80, ANIMID_IDLE_ANIM, gameWorld, ObjectTag::TAG_DROP), plantProduced(plantProduced) {
     // Set FallingTime
     if (plantProduced == false) {
         fallingTime = randInt(63, 263);

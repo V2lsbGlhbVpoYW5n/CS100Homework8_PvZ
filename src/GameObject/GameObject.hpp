@@ -4,6 +4,15 @@
 #include <memory>
 #include "ObjectBase.hpp"
 
+enum class ObjectTag {
+    TAG_PLANT,
+    TAG_ZOMBIE,
+    TAG_DROP,
+    TAG_SEED,
+    TAG_SHOVEL,
+    TAG_NONE
+};
+
 // Declares the class name GameWorld so that its pointers can be used.
 class GameWorld;
 using pGameWorld = std::shared_ptr<GameWorld>;
@@ -12,7 +21,7 @@ class GameObject : public ObjectBase, public std::enable_shared_from_this<GameOb
 public:
     using std::enable_shared_from_this<GameObject>::shared_from_this; // Use shared_from_this() instead of "this".
 
-    GameObject(int imageID, int x, int y, LayerID layer, int width, int height, AnimID animID, pGameWorld gameWorld);
+    GameObject(int imageID, int x, int y, LayerID layer, int width, int height, AnimID animID, pGameWorld gameWorld, ObjectTag tag);
     GameObject(const GameObject& other) = delete;
     GameObject(GameObject&& other) = delete;
     GameObject& operator=(const GameObject& other) = delete;
@@ -26,11 +35,16 @@ public:
 
     bool GetDead();
 
+    ObjectTag GetTag();
+
+    bool HasTag(ObjectTag tag);
+
     bool operator==(const ObjectBase& other) override;
 protected:
     pGameWorld gameWorld;
 private:
     bool isDead = false;
+    ObjectTag tag = ObjectTag::TAG_NONE;
 };
 
 #endif // !GAMEOBJECT_HPP__

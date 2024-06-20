@@ -6,9 +6,7 @@ public:
     SunProducer(int firstSunTime, int sunInterval);
     ~SunProducer() = default;
 
-    void Update();
-
-    int GetCurrentInterval() const;
+    bool Update();
 
 private:
     int firstSunTime;

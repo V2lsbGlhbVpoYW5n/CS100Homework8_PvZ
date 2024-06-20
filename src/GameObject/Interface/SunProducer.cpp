@@ -4,14 +4,12 @@
 SunProducer::SunProducer(int firstSunTime, int sunInterval) : firstSunTime(firstSunTime), sunInterval(sunInterval) {
 }
 
-void SunProducer::Update() {
+bool SunProducer::Update() {
     if (currentInterval == 0) {
         currentInterval = sunInterval;
+        return true;
     } else {
         currentInterval--;
+        return false;
     }
-}
-
-int SunProducer::GetCurrentInterval() const {
-    return currentInterval;
 }

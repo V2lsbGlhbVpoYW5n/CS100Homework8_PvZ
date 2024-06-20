@@ -2,6 +2,23 @@
 #include "Background.hpp"
 #include "PlantingSpot.hpp"
 #include "Sun.hpp"
+#include "HandHoldObject/Seed/SunflowerSeed.hpp"
+
+void Hand::SetHandObject(pHandHoldObject obj) {
+    handObject = std::move(obj);
+}
+
+pHandHoldObject Hand::GetHandObject() const {
+    return handObject;
+}
+
+void Hand::ClearHandObject() {
+    handObject = nullptr;
+}
+
+bool Hand::IsEmpty() {
+    return handObject == nullptr;
+}
 
 GameWorld::GameWorld() : SunProducer(180, 300) {
 }
@@ -23,12 +40,12 @@ void GameWorld::Init() {
                                                                  shared_from_this()));
         }
     }
+    gameObjects.push_back(std::make_shared<SunflowerSeed>(130, WINDOW_HEIGHT -44, shared_from_this()));
 }
 
 LevelStatus GameWorld::Update() {
     // update all game objects
-    SunProducer::Update();
-    if (SunProducer::GetCurrentInterval() == 0) {
+    if (SunProducer::Update()) {
         AddObject(std::make_shared<Sun>(randInt(75, WINDOW_WIDTH - 75), WINDOW_HEIGHT - 1, shared_from_this(), false));
     }
     std::list<pGameObject> toRemove;
@@ -51,15 +68,37 @@ void GameWorld::CleanUp() {
 //}
 
 void GameWorld::AddObject(pGameObject obj) {
-    gameObjects.push_back(obj);
+    gameObjects.push_back(std::move(obj));
 }
 
-void GameWorld::RemoveObject(const std::list<pGameObject>& toRemove) {
-    for(auto &obj : toRemove) {
+void GameWorld::RemoveObject(const std::list<pGameObject> &toRemove) {
+    for (auto &obj : toRemove) {
         gameObjects.remove(obj);
     }
 }
 
 void GameWorld::ChangeSun(int sunValueDelta) {
     sun += sunValueDelta;
+}
+
+void GameWorld::SetHandObject(pHandHoldObject obj) {
+    hand.SetHandObject(std::move(obj));
+}
+
+pHandHoldObject GameWorld::UseHandObject() {
+    pHandHoldObject obj = std::move(hand.GetHandObject());
+    hand.ClearHandObject();
+    return obj;
+}
+
+bool GameWorld::IsHandEmpty(){
+    return hand.IsEmpty();
+}
+
+void GameWorld::SetHandObjectUseFunction(std::function<void(int &&, int &&)> lambda) {
+    handObjectUseFunction = std::move(lambda);
+}
+
+std::function<void(int &&, int &&)> GameWorld::GetHandObjectUseFunction() {
+    return handObjectUseFunction;
 }

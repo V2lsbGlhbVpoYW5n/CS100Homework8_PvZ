@@ -2,7 +2,7 @@
 #define PVZ_SRC_GAMEOBJECT_SUNFLOWER_HPP
 
 #include "Plant.hpp"
-#include "SunProducer.hpp"
+#include "GameObject/Interface/SunProducer.hpp"
 
 class Sunflower : public Plant, public SunProducer {
 public:

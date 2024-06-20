@@ -8,10 +8,9 @@ Sunflower::Sunflower(int x, int y, pGameWorld gameWorld) :
 
 void Sunflower::Update() {
     Plant::Update();
-    if (SunProducer::GetCurrentInterval() == 0) {
+    if (SunProducer::Update()) {
         gameWorld->AddObject(std::make_shared<Sun>(GetX(), GetY(), gameWorld, true));
     }
-    SunProducer::Update();
 }
 
 void Sunflower::OnClick() {
