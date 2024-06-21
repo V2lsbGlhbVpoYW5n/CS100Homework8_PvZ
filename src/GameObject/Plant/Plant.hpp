@@ -15,9 +15,9 @@ public:
     void Update() override;
     void OnClick() override;
 
-    bool operator==(const ObjectBase &other) override;
-
     int GetHP() const;
+
+    friend class Shovel;
 
 private:
     int HP;

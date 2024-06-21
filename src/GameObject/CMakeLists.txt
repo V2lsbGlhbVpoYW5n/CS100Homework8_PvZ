@@ -25,6 +25,28 @@ add_library(
         HandHoldObject/Seed/Seed.hpp
         HandHoldObject/Seed/SunflowerSeed.cpp
         HandHoldObject/Seed/SunflowerSeed.hpp
+        HandHoldObject/Shovel.hpp
+        HandHoldObject/Shovel.cpp
+        HandHoldObject/Seed/CooldownMask.hpp
+        HandHoldObject/Seed/CooldownMask.cpp
+        HandHoldObject/Seed/PeashooterSeed.hpp
+        HandHoldObject/Seed/PeashooterSeed.cpp
+        HandHoldObject/Seed/WallnutSeed.hpp
+        HandHoldObject/Seed/WallnutSeed.cpp
+        HandHoldObject/Seed/CherryBombSeed.hpp
+        HandHoldObject/Seed/CherryBombSeed.cpp
+        HandHoldObject/Seed/RepeaterSeed.hpp
+        HandHoldObject/Seed/RepeaterSeed.cpp
+        Plant/Wallnut.hpp
+        Plant/Wallnut.cpp
+        Plant/PeaShooter.hpp
+        Plant/PeaShooter.cpp
+        Plant/CherryBomb.hpp
+        Plant/CherryBomb.cpp
+        Plant/Repeater.hpp
+        Plant/Repeater.cpp
+        Interface/Ash.hpp
+        Interface/Ash.cpp
 )
 
 target_link_libraries(

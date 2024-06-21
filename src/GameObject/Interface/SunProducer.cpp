@@ -1,5 +1,4 @@
 #include "SunProducer.hpp"
-#include "GameWorld.hpp"
 
 SunProducer::SunProducer(int firstSunTime, int sunInterval) : firstSunTime(firstSunTime), sunInterval(sunInterval) {
 }

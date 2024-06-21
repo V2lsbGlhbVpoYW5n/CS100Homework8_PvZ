@@ -6,10 +6,6 @@ GameObject::GameObject(int imageID, int x, int y, LayerID layer, int width, int 
     ObjectBase(imageID, x, y, layer, width, height, animID), gameWorld(std::move(gameWorld)), tag(tag){
 }
 
-bool GameObject::operator==(const ObjectBase &other) {
-    return ObjectBase::operator==(other);
-}
-
 void GameObject::Die(){
     isDead = true;
 }

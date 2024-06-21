@@ -2,7 +2,7 @@
 #include "GameWorld.hpp"
 
 Sun::Sun(int x, int y, pGameWorld gameWorld, bool plantProduced) :
-    GameObject(IMGID_SUN, x, y, LAYER_SUN, 80, 80, ANIMID_IDLE_ANIM, gameWorld, ObjectTag::TAG_DROP), plantProduced(plantProduced) {
+    GameObject(IMGID_SUN, x, y, LAYER_SUN, 80, 80, ANIMID_IDLE_ANIM, std::move(gameWorld), ObjectTag::TAG_DROP), plantProduced(plantProduced) {
     // Set FallingTime
     if (plantProduced == false) {
         fallingTime = randInt(63, 263);
@@ -35,8 +35,4 @@ void Sun::Update() {
 void Sun::OnClick() {
     gameWorld->ChangeSun(sunValue);
     Die();
-}
-
-bool Sun::operator==(const ObjectBase &other) {
-    return GameObject::operator==(other);
 }

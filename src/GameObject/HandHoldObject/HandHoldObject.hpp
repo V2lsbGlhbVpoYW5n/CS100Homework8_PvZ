@@ -18,7 +18,6 @@ public:
     void OnClick() override;
 
     virtual void UseObject(int x, int y) = 0;
-
 };
 
 #endif //PVZ_SRC_GAMEOBJECT_HANDHOLDOBJECT_HANDHOLDOBJECT_HPP

@@ -12,7 +12,3 @@ void Background::Update() {
 
 void Background::OnClick() {
 }
-
-bool Background::operator==(const ObjectBase &other) {
-    return GameObject::operator==(other);
-}

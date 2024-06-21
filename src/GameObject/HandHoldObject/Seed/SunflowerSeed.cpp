@@ -6,6 +6,5 @@ SunflowerSeed::SunflowerSeed(int x, int y, pGameWorld gameWorld) :
 }
 
 void SunflowerSeed::UseObject(int x, int y) {
-    std::cout << "Fuck";
-    gameWorld->AddObject(std::make_shared<Sunflower>(x, y, gameWorld));
+    Seed::MakePlant<Sunflower>(x, y);
 }

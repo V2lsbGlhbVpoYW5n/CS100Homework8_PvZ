@@ -15,14 +15,11 @@ public:
     void Update() override;
     void OnClick() override;
 
-    bool operator==(const ObjectBase &other) override;
-
 private:
     int sunValue = 25;
     int fallingTime;
     bool plantProduced;
     const int PLANTPRODUCED_FALLINGTIME = 12;
-
 };
 
 #endif //PVZ_SRC_GAMEOBJECT_SUN_HPP

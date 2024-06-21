@@ -8,8 +8,6 @@ enum class ObjectTag {
     TAG_PLANT,
     TAG_ZOMBIE,
     TAG_DROP,
-    TAG_SEED,
-    TAG_SHOVEL,
     TAG_NONE
 };
 
@@ -31,16 +29,13 @@ public:
     void Update() override = 0;
     void OnClick() override = 0;
 
-    void Die();
-
     bool GetDead();
 
     ObjectTag GetTag();
-
     bool HasTag(ObjectTag tag);
 
-    bool operator==(const ObjectBase& other) override;
 protected:
+    void Die();
     pGameWorld gameWorld;
 private:
     bool isDead = false;

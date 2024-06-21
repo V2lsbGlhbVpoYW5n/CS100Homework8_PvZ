@@ -10,7 +10,7 @@ void HandHoldObject::Update() {
 }
 
 void HandHoldObject::OnClick() {
-    auto boundFunc = [this](int && PH1, int && PH2) { UseObject(std::forward<decltype(PH1)>(PH1), std::forward<decltype(PH2)>(PH2)); };
-    gameWorld->SetHandObjectUseFunction(boundFunc);
-    std::cout << "Fucka";
+    auto useFunc =
+        [this](int &&PH1, int &&PH2) { UseObject(std::forward<decltype(PH1)>(PH1), std::forward<decltype(PH2)>(PH2)); };
+    gameWorld->SetHandObjectUseFunction(std::move(useFunc),false);
 }

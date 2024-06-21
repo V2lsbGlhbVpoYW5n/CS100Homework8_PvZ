@@ -14,9 +14,6 @@ public:
     ~Sunflower() override = default;
 
     void Update() override;
-    void OnClick() override;
-
-    bool operator==(const ObjectBase &other) override;
 };
 
 #endif //PVZ_SRC_GAMEOBJECT_SUNFLOWER_HPP
