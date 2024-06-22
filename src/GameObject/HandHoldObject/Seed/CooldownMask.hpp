@@ -3,6 +3,9 @@
 
 #include "GameObject.hpp"
 
+class TextBase;
+using pTextBase = std::shared_ptr<TextBase>;
+
 class CooldownMask : public GameObject {
 public:
     CooldownMask(int x, int y, pGameWorld gameWorld, int livingTime);
@@ -16,6 +19,7 @@ public:
     void OnClick() override;
 private:
     int livingTime;
+    pTextBase cooldownText;
 };
 
 #endif //PVZ_SRC_GAMEOBJECT_HANDHOLDOBJECT_SEED_COOLDOWNMASK_HPP

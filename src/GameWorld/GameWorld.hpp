@@ -16,6 +16,7 @@
 #include "ZombieSpawner.hpp"
 
 using pGameObject = std::shared_ptr<GameObject>;
+using pTextBase = std::shared_ptr<TextBase>;
 
 class GameWorld : public WorldBase, public std::enable_shared_from_this<GameWorld>, public SunProducer, public ZombieSpawner {
 public:
@@ -47,5 +48,8 @@ private:
     int wave = 0;
     std::function<void(int &&, int &&)> handObjectUseFunction;
     bool isHandShovel;
+    pTextBase sunText;
+    pTextBase waveText;
+    pTextBase handText;
 };
 #endif // !GAMEWORLD_HPP__

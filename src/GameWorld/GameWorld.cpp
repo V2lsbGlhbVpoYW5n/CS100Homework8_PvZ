@@ -15,7 +15,9 @@
 #include "Zombie/BucketHeadZombie.hpp"
 #include "Zombie/PoleVaultingZombie.hpp"
 
-GameWorld::GameWorld() : SunProducer(180, 300) {
+GameWorld::GameWorld() : SunProducer(180, 300), sunText(std::make_shared<TextBase>(60, WINDOW_HEIGHT-80, "0", 0, 0, 0)),
+                         waveText(std::make_shared<TextBase>(WINDOW_WIDTH-150, 30, "Wave: 0", 57, 197, 187, false)),
+                         handText(std::make_shared<TextBase>(650, WINDOW_HEIGHT-40, "Hand: Empty", 0, 0, 0, false)){
 }
 
 GameWorld::~GameWorld() {
@@ -56,6 +58,7 @@ LevelStatus GameWorld::Update() {
     // Spawn Zombies
     if (int number = ZombieSpawner::Update(wave + 1) > 0) {
         ++wave;
+        waveText->SetText("Wave: " + std::to_string(wave));
         int P1 = 20;
         int P2 = 2 * std::max(wave - 8, 0);
         int P3 = 2 * std::max(wave - 15, 0);
@@ -81,7 +84,7 @@ LevelStatus GameWorld::Update() {
     // Update all game objects
     // Find Zombies
     std::list<pGameObject> zombies;
-    for (auto &obj : gameObjects){
+    for (auto &obj : gameObjects) {
         obj->Update();
 
         if (obj->HasTag(ObjectTag::TAG_ZOMBIE)) {
@@ -101,8 +104,8 @@ LevelStatus GameWorld::Update() {
 
     // Check dead objects
     std::list<pGameObject> toRemove;
-    for(auto &obj : gameObjects){
-        if (obj->GetDead()){
+    for (auto &obj : gameObjects) {
+        if (obj->GetDead()) {
             toRemove.push_back(obj);
         }
     }
@@ -114,6 +117,8 @@ LevelStatus GameWorld::Update() {
     if (!zombies.empty()) {
         for (auto &zombie : zombies) {
             if (zombie->GetX() < 0) {
+                waveText->SetText(std::to_string(wave-1));
+                waveText->MoveTo(500,80);
                 return LevelStatus::LOSING;
             }
         }
@@ -128,6 +133,9 @@ LevelStatus GameWorld::Update() {
         }
     }
 
+    sunText->SetText(std::to_string(sun));
+    handText->SetText(std::string("Hand: ") + (IsHandEmpty() ? "Empty" : (IsHandShovel() ? "Shovel" : "Plant")));
+
     return LevelStatus::ONGOING;
 }
 
@@ -136,6 +144,10 @@ void GameWorld::CleanUp() {
     gameObjects.clear();
     SunProducer::Reset();
     ZombieSpawner::Reset();
+    sunText->SetText("0");
+    waveText->SetText("Wave: 0");
+    handText->SetText("Hand: Empty");
+    waveText->MoveTo(WINDOW_WIDTH-150, 30);
 }
 
 void GameWorld::AddObject(pGameObject obj) {
