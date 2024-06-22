@@ -7,4 +7,9 @@ Wallnut::Wallnut(int x, int y, pGameWorld gameWorld) :
 
 void Wallnut::Update() {
     Plant::Update();
+    if (GetDead()) {
+        return;
+    } else if (HP < 4000/3) {
+        ChangeImage(IMGID_WALLNUT_CRACKED);
+    }
 }

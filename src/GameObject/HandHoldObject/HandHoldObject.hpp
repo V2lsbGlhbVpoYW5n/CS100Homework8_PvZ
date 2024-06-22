@@ -3,8 +3,6 @@
 
 #include "GameObject.hpp"
 
-using pGameObject = std::shared_ptr<GameObject>;
-
 class HandHoldObject : public GameObject{
 public:
     HandHoldObject(int imageID, int x, int y, int width, int height, pGameWorld gameWorld, ObjectTag tag);

@@ -13,6 +13,7 @@ void Shovel::UseObject(int x, int y) {
 void Shovel::OnClick() {
     if (!gameWorld->IsHandEmpty() && gameWorld->IsHandShovel()) {
         gameWorld->ClearHandObjectUseFunction();
+        return;
     }
     auto useFunc =
         [this](int &&PH1, int &&PH2) { UseObject(std::forward<decltype(PH1)>(PH1), std::forward<decltype(PH2)>(PH2)); };

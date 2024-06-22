@@ -7,6 +7,7 @@ public:
     ~SunProducer() = default;
 
     bool Update();
+    void Reset();
 
 private:
     int firstSunTime;

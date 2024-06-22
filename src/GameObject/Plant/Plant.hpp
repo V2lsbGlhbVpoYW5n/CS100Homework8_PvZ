@@ -14,12 +14,11 @@ public:
 
     void Update() override;
     void OnClick() override;
-
-    int GetHP() const;
+    bool OnCollide(pGameObejct) override;
 
     friend class Shovel;
 
-private:
+protected:
     int HP;
 };
 

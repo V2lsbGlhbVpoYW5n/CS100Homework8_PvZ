@@ -12,3 +12,7 @@ bool SunProducer::Update() {
         return false;
     }
 }
+
+void SunProducer::Reset() {
+    currentInterval = firstSunTime;
+}

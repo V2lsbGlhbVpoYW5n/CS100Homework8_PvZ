@@ -13,10 +13,11 @@
 #include "utils.hpp"
 
 #include "GameObject/Interface/SunProducer.hpp"
+#include "ZombieSpawner.hpp"
 
 using pGameObject = std::shared_ptr<GameObject>;
 
-class GameWorld : public WorldBase, public std::enable_shared_from_this<GameWorld>, public SunProducer {
+class GameWorld : public WorldBase, public std::enable_shared_from_this<GameWorld>, public SunProducer, public ZombieSpawner {
 public:
     // Use shared_from_this() instead of "this" to create a pointer to oneself.
     GameWorld();
@@ -38,6 +39,7 @@ public:
     bool IsHandShovel();
     void ClearHandObjectUseFunction();
 
+    bool IsPoleVaultingZombieJump(pGameObject zombie);
 
 private:
     std::list<pGameObject> gameObjects;
@@ -46,5 +48,4 @@ private:
     std::function<void(int &&, int &&)> handObjectUseFunction;
     bool isHandShovel;
 };
-
 #endif // !GAMEWORLD_HPP__

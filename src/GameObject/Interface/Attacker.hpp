@@ -3,15 +3,17 @@
 
 class Attacker {
 public:
-    Attacker(int firstAttackTime, int attackInterval);
+    Attacker(int attackInterval, int attackTimes, int roundInterval);
     ~Attacker() = default;
 
     bool Update();
 
 private:
-    int firstAttackTime;
+    int roundInterval;
+    int attackTimes;
     int attackInterval;
-    int currentInterval = firstAttackTime;
+    int currentInterval = roundInterval;
+    int currentTimes = 0;
 };
 
 #endif //PVZ_SRC_GAMEOBJECT_INTERFACE_ATTACKER_HPP

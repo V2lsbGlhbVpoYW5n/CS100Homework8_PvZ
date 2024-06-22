@@ -9,7 +9,7 @@ Seed::Seed(int imageID, int x, int y, pGameWorld gameWorld, int ORIGINAL_COST, i
     if (activatedAtBeginning) {
         cooldown = 0;
     } else {
-        cooldown = maxCooldown;
+        ResetCooldown();
     }
 }
 

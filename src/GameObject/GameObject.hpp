@@ -7,7 +7,8 @@
 enum class ObjectTag {
     TAG_PLANT,
     TAG_ZOMBIE,
-    TAG_DROP,
+    TAG_PEA,
+    TAG_EXPLOSION,
     TAG_NONE
 };
 
@@ -18,16 +19,21 @@ using pGameWorld = std::shared_ptr<GameWorld>;
 class GameObject : public ObjectBase, public std::enable_shared_from_this<GameObject> {
 public:
     using std::enable_shared_from_this<GameObject>::shared_from_this; // Use shared_from_this() instead of "this".
+    using pGameObejct = std::shared_ptr<GameObject>;
 
-    GameObject(int imageID, int x, int y, LayerID layer, int width, int height, AnimID animID, pGameWorld gameWorld, ObjectTag tag);
-    GameObject(const GameObject& other) = delete;
-    GameObject(GameObject&& other) = delete;
-    GameObject& operator=(const GameObject& other) = delete;
-    GameObject& operator=(GameObject&& other) = delete;
+    GameObject(int imageID, int x, int y, LayerID layer, int width, int height, AnimID animID, pGameWorld gameWorld,
+               ObjectTag tag);
+    GameObject(const GameObject &other) = delete;
+    GameObject(GameObject &&other) = delete;
+    GameObject &operator=(const GameObject &other) = delete;
+    GameObject &operator=(GameObject &&other) = delete;
     ~GameObject() override = default;
 
     void Update() override = 0;
     void OnClick() override = 0;
+    virtual bool CheckCollide(pGameObejct other);
+    virtual bool OnCollide(pGameObejct other);
+    bool CanCollide();
 
     bool GetDead();
 

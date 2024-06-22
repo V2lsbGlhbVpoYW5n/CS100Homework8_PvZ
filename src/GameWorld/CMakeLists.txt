@@ -5,6 +5,8 @@ add_library(
   STATIC
   GameWorld.hpp
   GameWorld.cpp
+        ZombieSpawner.hpp
+        ZombieSpawner.cpp
 )
 
 target_link_libraries(

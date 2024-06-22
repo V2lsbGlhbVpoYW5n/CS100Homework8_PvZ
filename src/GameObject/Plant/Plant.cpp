@@ -6,7 +6,7 @@ Plant::Plant(int imageID, int x, int y, int width, int height, AnimID animID, pG
 }
 
 void Plant::Update() {
-    if (GetHP() <= 0) {
+    if (HP <= 0) {
         Die();
         return;
     }
@@ -20,7 +20,19 @@ void Plant::OnClick() {
     }
 }
 
-int Plant::GetHP() const {
-    return HP;
+bool Plant::OnCollide(pGameObejct other) {
+    if (!GameObject::OnCollide(other)) {
+        return false;
+    }
+    switch (other->GetTag()) {
+        case ObjectTag::TAG_ZOMBIE:
+            HP -= 3;
+            break;
+        case ObjectTag::TAG_PLANT:
+        case ObjectTag::TAG_PEA:
+        case ObjectTag::TAG_EXPLOSION:
+        case ObjectTag::TAG_NONE:
+            break;
+    }
+    return true;
 }
-

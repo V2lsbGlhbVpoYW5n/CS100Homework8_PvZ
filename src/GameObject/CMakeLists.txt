@@ -47,6 +47,20 @@ add_library(
         Plant/Repeater.cpp
         Interface/Ash.hpp
         Interface/Ash.cpp
+        Zombie/Zombie.hpp
+        Zombie/Zombie.cpp
+        Zombie/RegularZombie.hpp
+        Zombie/RegularZombie.cpp
+        Zombie/BucketHeadZombie.hpp
+        Zombie/BucketHeadZombie.cpp
+        Zombie/PoleVaultingZombie.hpp
+        Zombie/PoleVaultingZombie.cpp
+        Projectile/Projectile.hpp
+        Projectile/Projectile.cpp
+        Projectile/Pea.hpp
+        Projectile/Pea.cpp
+        Projectile/Explosion.hpp
+        Projectile/Explosion.cpp
 )
 
 target_link_libraries(
