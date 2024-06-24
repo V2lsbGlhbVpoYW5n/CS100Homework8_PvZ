@@ -1,4 +1,6 @@
 #include "Zombie.hpp"
+#include <fstream>
+#include <iostream>
 
 Zombie::Zombie(int imageID, int x, int y, int width, int height, AnimID animID, pGameWorld gameWorld, int HP, int SPD) :
     GameObject(imageID, x, y, LAYER_ZOMBIES, width, height, animID, std::move(gameWorld), ObjectTag::TAG_ZOMBIE),
@@ -26,13 +28,22 @@ void Zombie::ChangeStatus(ZombieStatus status) {
 }
 
 bool Zombie::OnCollide(pGameObejct other) {
-    status = ZombieStatus::WALK;
+//    std::fstream f;
+//    f.open("logDebug.txt", std::ios::out | std::ios::app);
+//    f << std::to_string(GetX()) + " " +std::to_string(GetY()) + "\n" << std::endl;
     if (!GameObject::OnCollide(other)) {
+//        f.close();
         return false;
     }
     switch (other->GetTag()) {
         case ObjectTag::TAG_PLANT:
-            status = ZombieStatus::EAT;
+//            f << "PLANT\n" << std::endl;
+            if (other->GetX() < GetX() + 20){
+                status = ZombieStatus::EAT;
+            }
+            if(other->GetDead()){
+                status = ZombieStatus::WALK;
+            }
             break;
         case ObjectTag::TAG_EXPLOSION:
             Die();
@@ -44,6 +55,10 @@ bool Zombie::OnCollide(pGameObejct other) {
         case ObjectTag::TAG_NONE:
             break;
     }
+//    if (status == ZombieStatus::EAT){
+//        f << "EAT-----------\n" << std::endl;
+//    }
+//    f.close();
     return true;
 }
 

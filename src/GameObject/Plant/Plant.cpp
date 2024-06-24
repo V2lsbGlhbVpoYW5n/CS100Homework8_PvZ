@@ -26,7 +26,9 @@ bool Plant::OnCollide(pGameObejct other) {
     }
     switch (other->GetTag()) {
         case ObjectTag::TAG_ZOMBIE:
-            HP -= 3;
+            if (other->GetX() + 20 > GetX()){ // 20 makes the colliding more precise
+                HP -= 3;
+            }
             break;
         case ObjectTag::TAG_PLANT:
         case ObjectTag::TAG_PEA:

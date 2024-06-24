@@ -5,7 +5,8 @@
 
 enum class ZombieStatus {
     WALK,
-    EAT
+    EAT,
+    RUN
 };
 
 class Zombie : public GameObject {

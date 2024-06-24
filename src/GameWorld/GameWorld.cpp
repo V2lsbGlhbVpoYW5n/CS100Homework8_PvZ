@@ -26,7 +26,7 @@ GameWorld::~GameWorld() {
 
 void GameWorld::Init() {
     // initialize sun and wave
-    sun = 50;
+    sun = 5000;
     wave = 0;
 
     // create planting spots
@@ -48,38 +48,15 @@ void GameWorld::Init() {
     gameObjects.push_back(std::make_shared<RepeaterSeed>(130 + 60 * 2, WINDOW_HEIGHT - 44, shared_from_this()));
     gameObjects.push_back(std::make_shared<WallnutSeed>(130 + 60 * 3, WINDOW_HEIGHT - 44, shared_from_this()));
     gameObjects.push_back(std::make_shared<CherryBombSeed>(130 + 60 * 4, WINDOW_HEIGHT - 44, shared_from_this()));
+    AddObject(std::make_shared<PoleVaultingZombie
+    >(randInt(WINDOW_WIDTH - 40, WINDOW_WIDTH - 1), FIRST_ROW_CENTER
+        + randInt(0, GAME_ROWS - 1) * LAWN_GRID_HEIGHT, shared_from_this()));
 }
 
 LevelStatus GameWorld::Update() {
     // SunProducer Update
     if (SunProducer::Update()) {
         AddObject(std::make_shared<Sun>(randInt(75, WINDOW_WIDTH - 75), WINDOW_HEIGHT - 1, shared_from_this(), false));
-    }
-
-    // Spawn Zombies
-    if (int number = ZombieSpawner::Update(wave + 1) > 0) {
-        ++wave;
-        waveText->SetText("Wave: " + std::to_string(wave));
-        int P1 = 20;
-        int P2 = 2 * std::max(wave - 8, 0);
-        int P3 = 2 * std::max(wave - 15, 0);
-        int c = randInt(1, P1 + P2 + P3);
-        for (int i = 0; i < number; ++i) {
-            if (c <= P1) {
-                AddObject(std::make_shared<RegularZombie>(randInt(WINDOW_WIDTH - 40, WINDOW_WIDTH - 1), FIRST_ROW_CENTER
-                    + randInt(0, GAME_ROWS - 1) * LAWN_GRID_HEIGHT, shared_from_this()));
-            } else if (c <= P1 + P2) {
-                AddObject(std::make_shared<PoleVaultingZombie>(randInt(WINDOW_WIDTH - 40, WINDOW_WIDTH - 1),
-                                                               FIRST_ROW_CENTER
-                                                                   + randInt(0, GAME_ROWS - 1) * LAWN_GRID_HEIGHT,
-                                                               shared_from_this()));
-            } else {
-                AddObject(std::make_shared<BucketHeadZombie>(randInt(WINDOW_WIDTH - 40, WINDOW_WIDTH - 1),
-                                                             FIRST_ROW_CENTER
-                                                                 + randInt(0, GAME_ROWS - 1) * LAWN_GRID_HEIGHT,
-                                                             shared_from_this()));
-            }
-        }
     }
 
     // Update all game objects
@@ -109,9 +86,6 @@ LevelStatus GameWorld::Update() {
         }
     }
 
-    // Remove dead objects
-    RemoveObject(toRemove);
-
     // Check if the level is over
     if (!zombies.empty()) {
         for (auto &zombie : zombies) {
@@ -131,6 +105,9 @@ LevelStatus GameWorld::Update() {
             }
         }
     }
+
+    // Remove dead objects
+    RemoveObject(toRemove);
 
     sunText->SetText(std::to_string(sun));
     handText->SetText(std::string("Hand: ") + (IsHandEmpty() ? "Empty" : (IsHandShovel() ? "Shovel" : "Plant")));
@@ -193,8 +170,8 @@ void GameWorld::ClearHandObjectUseFunction() {
 bool GameWorld::IsPoleVaultingZombieJump(pGameObject zombie) {
     for (auto &obj : gameObjects) {
         if (obj->HasTag(ObjectTag::TAG_PLANT) && !obj->GetDead()) {
-            if (abs(zombie->GetX() - 40 - obj->GetX()) < (obj->GetWidth() + zombie->GetWidth() / 2)
-                && abs(zombie->GetY() - obj->GetY()) < (obj->GetHeight() + zombie->GetHeight() / 2)) {
+            if (abs(zombie->GetX() - 40 - obj->GetX()) < (obj->GetWidth() + zombie->GetWidth())/2
+                && abs(zombie->GetY() - obj->GetY()) < (obj->GetHeight() + zombie->GetHeight())/2) {
                 return true;
             }
         }

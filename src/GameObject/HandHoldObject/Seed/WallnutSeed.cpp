@@ -2,7 +2,7 @@
 #include "Plant/Wallnut.hpp"
 
 WallnutSeed::WallnutSeed(int x, int y, pGameWorld gameWorld) :
-    Seed(IMGID_SEED_WALLNUT, x, y, std::move(gameWorld), 50, 900, false) {
+    Seed(IMGID_SEED_WALLNUT, x, y, std::move(gameWorld), 50, 30, true) {
 }
 
 void WallnutSeed::UseObject(int x, int y) {
