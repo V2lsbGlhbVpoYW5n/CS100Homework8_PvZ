@@ -22,7 +22,6 @@ public:
     void OnClick() override;
 
     void ChangeStatus(ZombieStatus status);
-
 protected:
     ZombieStatus status = ZombieStatus::WALK;
     int HP;

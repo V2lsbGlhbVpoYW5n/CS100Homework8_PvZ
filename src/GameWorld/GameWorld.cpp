@@ -15,9 +15,10 @@
 #include "Zombie/BucketHeadZombie.hpp"
 #include "Zombie/PoleVaultingZombie.hpp"
 
-GameWorld::GameWorld() : SunProducer(180, 300), sunText(std::make_shared<TextBase>(60, WINDOW_HEIGHT-80, "0", 0, 0, 0)),
-                         waveText(std::make_shared<TextBase>(WINDOW_WIDTH-150, 30, "Wave: 0", 57, 197, 187, false)),
-                         handText(std::make_shared<TextBase>(650, WINDOW_HEIGHT-40, "Hand: Empty", 0, 0, 0, false)){
+GameWorld::GameWorld() : SunProducer(180, 300),
+                         sunText(std::make_shared<TextBase>(60, WINDOW_HEIGHT - 80, "0", 0, 0, 0)),
+                         waveText(std::make_shared<TextBase>(WINDOW_WIDTH - 150, 30, "Wave: 0", 1.0, 1.0, 1.0, false)),
+                         handText(std::make_shared<TextBase>(650, WINDOW_HEIGHT - 40, "Hand: Empty", 0, 0, 0, false)) {
 }
 
 GameWorld::~GameWorld() {
@@ -82,20 +83,14 @@ LevelStatus GameWorld::Update() {
     }
 
     // Update all game objects
-    // Find Zombies
-    std::list<pGameObject> zombies;
     for (auto &obj : gameObjects) {
         obj->Update();
-
-        if (obj->HasTag(ObjectTag::TAG_ZOMBIE)) {
-            zombies.push_back(obj);
-        }
     }
 
     // Check Collide
     for (auto it1 = gameObjects.begin(); it1 != gameObjects.end(); ++it1) {
         for (auto it2 = std::next(it1); it2 != gameObjects.end(); ++it2) {
-            if ((*it1 != *it2) && (*it1)->CanCollide() && (*it2)->CanCollide()) {
+            if ((*it1)->CanCollide() && (*it2)->CanCollide()) {
                 (*it1)->OnCollide(*it2);
                 (*it2)->OnCollide(*it1);
             }
@@ -103,10 +98,14 @@ LevelStatus GameWorld::Update() {
     }
 
     // Check dead objects
+    // Find Zombies
+    std::list<pGameObject> zombies;
     std::list<pGameObject> toRemove;
     for (auto &obj : gameObjects) {
         if (obj->GetDead()) {
             toRemove.push_back(obj);
+        } else if (obj->HasTag(ObjectTag::TAG_ZOMBIE)) {
+            zombies.push_back(obj);
         }
     }
 
@@ -117,8 +116,8 @@ LevelStatus GameWorld::Update() {
     if (!zombies.empty()) {
         for (auto &zombie : zombies) {
             if (zombie->GetX() < 0) {
-                waveText->SetText(std::to_string(wave-1));
-                waveText->MoveTo(500,80);
+                waveText->SetText(std::to_string(wave - 1));
+                waveText->MoveTo(500, 80);
                 return LevelStatus::LOSING;
             }
         }
@@ -127,7 +126,7 @@ LevelStatus GameWorld::Update() {
     // Check Collide Again to keep zombie status correct
     for (auto &zombie : zombies) {
         for (auto it = gameObjects.begin(); it != gameObjects.end(); ++it) {
-            if ((*it)->HasTag(ObjectTag::TAG_PLANT) && !(*it)->GetDead()) {
+            if ((*it)->HasTag(ObjectTag::TAG_PLANT)) {
                 zombie->OnCollide(*it);
             }
         }
@@ -147,7 +146,7 @@ void GameWorld::CleanUp() {
     sunText->SetText("0");
     waveText->SetText("Wave: 0");
     handText->SetText("Hand: Empty");
-    waveText->MoveTo(WINDOW_WIDTH-150, 30);
+    waveText->MoveTo(WINDOW_WIDTH - 150, 30);
 }
 
 void GameWorld::AddObject(pGameObject obj) {

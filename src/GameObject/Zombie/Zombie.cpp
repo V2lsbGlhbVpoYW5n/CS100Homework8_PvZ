@@ -12,13 +12,12 @@ void Zombie::Update() {
     }
 
     if (status == ZombieStatus::WALK) {
+        if (GetCurrentAnimation() != ANIMID_WALK_ANIM) {
+            PlayAnimation(ANIMID_WALK_ANIM);
+        }
         MoveTo(GetX() - SPD, GetY());
-    } else if (status == ZombieStatus::EAT) {
-    }
-    if (status == ZombieStatus::EAT && GetCurrentAnimation() != ANIMID_EAT_ANIM) {
+    } else if (status == ZombieStatus::EAT && GetCurrentAnimation() != ANIMID_EAT_ANIM) {
         PlayAnimation(ANIMID_EAT_ANIM);
-    } else if (status == ZombieStatus::WALK && GetCurrentAnimation() != ANIMID_WALK_ANIM) {
-        PlayAnimation(ANIMID_WALK_ANIM);
     }
 }
 
@@ -27,13 +26,13 @@ void Zombie::ChangeStatus(ZombieStatus status) {
 }
 
 bool Zombie::OnCollide(pGameObejct other) {
-    if (!GameObject::OnCollide(other)){
-        ChangeStatus(ZombieStatus::WALK);
+    status = ZombieStatus::WALK;
+    if (!GameObject::OnCollide(other)) {
         return false;
     }
     switch (other->GetTag()) {
         case ObjectTag::TAG_PLANT:
-                ChangeStatus(ZombieStatus::EAT);
+            status = ZombieStatus::EAT;
             break;
         case ObjectTag::TAG_EXPLOSION:
             Die();
