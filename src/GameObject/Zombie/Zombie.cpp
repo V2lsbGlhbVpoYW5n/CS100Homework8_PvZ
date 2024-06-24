@@ -26,13 +26,17 @@ void Zombie::ChangeStatus(ZombieStatus status) {
 }
 
 bool Zombie::OnCollide(pGameObejct other) {
-    status = ZombieStatus::WALK;
     if (!GameObject::OnCollide(other)) {
         return false;
     }
     switch (other->GetTag()) {
         case ObjectTag::TAG_PLANT:
-            status = ZombieStatus::EAT;
+            if (other->GetX() < GetX() + 20){
+                status = ZombieStatus::EAT;
+            }
+            if(other->GetDead()){
+                status = ZombieStatus::WALK;
+            }
             break;
         case ObjectTag::TAG_EXPLOSION:
             Die();

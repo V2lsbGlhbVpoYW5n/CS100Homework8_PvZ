@@ -109,15 +109,12 @@ LevelStatus GameWorld::Update() {
         }
     }
 
-    // Remove dead objects
-    RemoveObject(toRemove);
-
     // Check if the level is over
     if (!zombies.empty()) {
         for (auto &zombie : zombies) {
             if (zombie->GetX() < 0) {
                 waveText->SetText(std::to_string(wave - 1));
-                waveText->MoveTo(500, 80);
+                waveText->MoveTo(325, 50);
                 return LevelStatus::LOSING;
             }
         }
@@ -132,9 +129,11 @@ LevelStatus GameWorld::Update() {
         }
     }
 
+    // Remove dead objects
+    RemoveObject(toRemove);
+
     sunText->SetText(std::to_string(sun));
     handText->SetText(std::string("Hand: ") + (IsHandEmpty() ? "Empty" : (IsHandShovel() ? "Shovel" : "Plant")));
-
     return LevelStatus::ONGOING;
 }
 
@@ -193,8 +192,8 @@ void GameWorld::ClearHandObjectUseFunction() {
 bool GameWorld::IsPoleVaultingZombieJump(pGameObject zombie) {
     for (auto &obj : gameObjects) {
         if (obj->HasTag(ObjectTag::TAG_PLANT) && !obj->GetDead()) {
-            if (abs(zombie->GetX() - 40 - obj->GetX()) < (obj->GetWidth() + zombie->GetWidth() / 2)
-                && abs(zombie->GetY() - obj->GetY()) < (obj->GetHeight() + zombie->GetHeight() / 2)) {
+            if (abs(zombie->GetX() - 40 - obj->GetX()) < (obj->GetWidth() + zombie->GetWidth())/2
+                && abs(zombie->GetY() - obj->GetY()) < (obj->GetHeight() + zombie->GetHeight())/2) {
                 return true;
             }
         }
