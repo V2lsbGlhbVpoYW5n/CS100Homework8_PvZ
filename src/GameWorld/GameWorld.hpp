@@ -13,16 +13,18 @@
 #include "utils.hpp"
 
 #include "GameObject/Interface/SunProducer.hpp"
-#include "ZombieSpawner.hpp"
+#include "GameObject/Interface/ZombieSpawner.hpp"
 
 using pGameObject = std::shared_ptr<GameObject>;
 using pTextBase = std::shared_ptr<TextBase>;
 
-class GameWorld : public WorldBase, public std::enable_shared_from_this<GameWorld>, public SunProducer, public ZombieSpawner {
+class GameWorld
+    : public WorldBase, public std::enable_shared_from_this<GameWorld>, public SunProducer, public ZombieSpawner {
 public:
     // Use shared_from_this() instead of "this" to create a pointer to oneself.
     GameWorld();
-    virtual ~GameWorld();
+//    virtual ~GameWorld();
+    ~GameWorld() override = default;
 
     void Init() override;
     LevelStatus Update() override;
@@ -32,22 +34,22 @@ public:
     void RemoveObject(const std::list<pGameObject> &toRemove);
 
     void ChangeSun(int sunValueDelta);
-    int GetSun();
+    int GetSun() const;
 
     void SetHandObjectUseFunction(std::function<void(int &&, int &&)> lambda, bool isShovel);
     std::function<void(int &&, int &&)> GetHandObjectUseFunction();
-    bool IsHandEmpty();
-    bool IsHandShovel();
+    bool IsHandEmpty() const;
+    bool IsHandShovel() const;
     void ClearHandObjectUseFunction();
 
-    bool IsPoleVaultingZombieJump(pGameObject zombie);
+    bool IsPoleVaultingZombieJump(const pGameObject& zombie);
 
 private:
     std::list<pGameObject> gameObjects;
     int sun = 0;
     int wave = 0;
     std::function<void(int &&, int &&)> handObjectUseFunction;
-    bool isHandShovel;
+    bool isHandShovel = false;
     pTextBase sunText;
     pTextBase waveText;
     pTextBase handText;

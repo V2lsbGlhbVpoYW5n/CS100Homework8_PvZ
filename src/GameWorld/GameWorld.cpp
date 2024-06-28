@@ -3,14 +3,13 @@
 #include "PlantingSpot.hpp"
 #include "Sun.hpp"
 #include "HandHoldObject/Shovel.hpp"
-// TODO: Seed maker
+
 #include "HandHoldObject/Seed/SunflowerSeed.hpp"
 #include "HandHoldObject/Seed/PeashooterSeed.hpp"
 #include "HandHoldObject/Seed/RepeaterSeed.hpp"
 #include "HandHoldObject/Seed/WallnutSeed.hpp"
 #include "HandHoldObject/Seed/CherryBombSeed.hpp"
 
-// TODO: Zombie maker
 #include "Zombie/RegularZombie.hpp"
 #include "Zombie/BucketHeadZombie.hpp"
 #include "Zombie/PoleVaultingZombie.hpp"
@@ -21,8 +20,8 @@ GameWorld::GameWorld() : SunProducer(180, 300),
                          handText(std::make_shared<TextBase>(650, WINDOW_HEIGHT - 40, "Hand: Empty", 0, 0, 0, false)) {
 }
 
-GameWorld::~GameWorld() {
-}
+//GameWorld::~GameWorld() {
+//}
 
 void GameWorld::Init() {
     // initialize sun and wave
@@ -57,14 +56,15 @@ LevelStatus GameWorld::Update() {
     }
 
     // Spawn Zombies
-    if (int number = ZombieSpawner::Update(wave + 1) > 0) {
+    int spawnNumber = ZombieSpawner::Update(wave + 1);
+    if (spawnNumber > 0) {
         ++wave;
         waveText->SetText("Wave: " + std::to_string(wave));
         int P1 = 20;
         int P2 = 2 * std::max(wave - 8, 0);
         int P3 = 2 * std::max(wave - 15, 0);
         int c = randInt(1, P1 + P2 + P3);
-        for (int i = 0; i < number; ++i) {
+        for (int i = 0; i < spawnNumber; ++i) {
             if (c <= P1) {
                 AddObject(std::make_shared<RegularZombie>(randInt(WINDOW_WIDTH - 40, WINDOW_WIDTH - 1), FIRST_ROW_CENTER
                     + randInt(0, GAME_ROWS - 1) * LAWN_GRID_HEIGHT, shared_from_this()));
@@ -162,7 +162,7 @@ void GameWorld::ChangeSun(int sunValueDelta) {
     sun += sunValueDelta;
 }
 
-int GameWorld::GetSun() {
+int GameWorld::GetSun() const {
     return sun;
 }
 
@@ -175,25 +175,24 @@ std::function<void(int &&, int &&)> GameWorld::GetHandObjectUseFunction() {
     return handObjectUseFunction;
 }
 
-bool GameWorld::IsHandEmpty() {
+bool GameWorld::IsHandEmpty() const {
     return handObjectUseFunction == nullptr;
 }
 
-bool GameWorld::IsHandShovel() {
+bool GameWorld::IsHandShovel() const {
     return isHandShovel;
 }
 
 void GameWorld::ClearHandObjectUseFunction() {
     handObjectUseFunction = nullptr;
     isHandShovel = false;
-    // TODO: this may be changed with destructor of an object which can be better
 }
 
-bool GameWorld::IsPoleVaultingZombieJump(pGameObject zombie) {
+bool GameWorld::IsPoleVaultingZombieJump(const pGameObject &zombie) {
     for (auto &obj : gameObjects) {
         if (obj->HasTag(ObjectTag::TAG_PLANT) && !obj->GetDead()) {
-            if (abs(zombie->GetX() - 40 - obj->GetX()) < (obj->GetWidth() + zombie->GetWidth())/2
-                && abs(zombie->GetY() - obj->GetY()) < (obj->GetHeight() + zombie->GetHeight())/2) {
+            if (abs(zombie->GetX() - 40 - obj->GetX()) < (obj->GetWidth() + zombie->GetWidth()) / 2
+                && abs(zombie->GetY() - obj->GetY()) < (obj->GetHeight() + zombie->GetHeight()) / 2) {
                 return true;
             }
         }

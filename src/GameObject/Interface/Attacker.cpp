@@ -13,7 +13,6 @@ bool Attacker::Update() {
         currentTimes++;
         if (currentTimes < attackTimes) {
             currentInterval = attackInterval;
-
         } else {
             currentTimes = 0;
             currentInterval = roundInterval;

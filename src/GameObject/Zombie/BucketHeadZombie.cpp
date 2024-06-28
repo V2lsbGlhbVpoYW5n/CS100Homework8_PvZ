@@ -9,7 +9,7 @@ void BucketHeadZombie::Update() {
     if (GetDead()) {
         return;
     }
-    if (HP<=200){
+    if (HP <= 200) {
         ChangeImage(IMGID_REGULAR_ZOMBIE);
     }
 }

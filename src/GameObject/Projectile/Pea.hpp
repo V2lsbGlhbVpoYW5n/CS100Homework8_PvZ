@@ -13,7 +13,6 @@ public:
     ~Pea() override = default;
 
     bool OnCollide(pGameObject other) override;
-
 };
 
 #endif //PVZ_SRC_GAMEOBJECT_PROJECTILE_PEA_HPP

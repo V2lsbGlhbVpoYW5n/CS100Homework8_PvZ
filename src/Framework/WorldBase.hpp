@@ -7,21 +7,18 @@
 
 #include "utils.hpp"
 
-
 class WorldBase {
 public:
-  WorldBase();
-  virtual ~WorldBase();
+    WorldBase();
+    virtual ~WorldBase();
 
-  virtual void Init() = 0;
+    virtual void Init() = 0;
 
-  virtual LevelStatus Update() = 0;
+    virtual LevelStatus Update() = 0;
 
-  virtual void CleanUp() = 0;
+    virtual void CleanUp() = 0;
 
 private:
-
 };
-
 
 #endif // !WORLDBASE_H__

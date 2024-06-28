@@ -7,19 +7,19 @@ GameObject::GameObject(int imageID, int x, int y, LayerID layer, int width, int 
     ObjectBase(imageID, x, y, layer, width, height, animID), gameWorld(std::move(gameWorld)), tag(tag) {
 }
 
-bool GameObject::CheckCollide(pGameObejct other) {
+bool GameObject::CheckCollide(pGameObejct other) const {
     return abs(this->GetX() - other->GetX()) <= (this->GetWidth() + other->GetWidth()) / 2
         && abs(this->GetY() - other->GetY()) <= (this->GetHeight() + other->GetHeight()) / 2;
 }
 
-bool GameObject::OnCollide(pGameObejct other){
-    if (!CheckCollide(other)){
+bool GameObject::OnCollide(pGameObejct other) {
+    if (!CheckCollide(other)) {
         return false;
     }
     return true;
 }
 
-bool GameObject::CanCollide() {
+bool GameObject::CanCollide() const {
     return !HasTag(ObjectTag::TAG_NONE);
 }
 
@@ -27,14 +27,14 @@ void GameObject::Die() {
     isDead = true;
 }
 
-bool GameObject::GetDead() {
+bool GameObject::GetDead() const {
     return isDead;
 }
 
-ObjectTag GameObject::GetTag() {
+ObjectTag GameObject::GetTag() const {
     return tag;
 }
 
-bool GameObject::HasTag(ObjectTag tag) {
+bool GameObject::HasTag(ObjectTag tag) const {
     return this->tag == tag;
 }

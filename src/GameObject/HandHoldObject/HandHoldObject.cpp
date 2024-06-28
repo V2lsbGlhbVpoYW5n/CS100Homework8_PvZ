@@ -12,5 +12,5 @@ void HandHoldObject::Update() {
 void HandHoldObject::OnClick() {
     auto useFunc =
         [this](int &&PH1, int &&PH2) { UseObject(std::forward<decltype(PH1)>(PH1), std::forward<decltype(PH2)>(PH2)); };
-    gameWorld->SetHandObjectUseFunction(std::move(useFunc),false);
+    gameWorld->SetHandObjectUseFunction(std::move(useFunc), false);
 }

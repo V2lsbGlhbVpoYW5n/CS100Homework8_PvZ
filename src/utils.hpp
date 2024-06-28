@@ -16,20 +16,23 @@ static const std::string ASSET_DIR = "../assets/";
 
 // Returns a random integer within [min, max] (inclusive).
 inline int randInt(int min, int max) {
-  if (max < min)
-    std::swap(max, min);
-  static std::random_device rd;
-  static std::mt19937 generator(rd());
-  std::uniform_int_distribution<> distro(min, max);
-  return distro(generator);
+    if (max < min) {
+        std::swap(max, min);
+    }
+    static std::random_device rd;
+    static std::mt19937 generator(rd());
+    std::uniform_int_distribution<> distro(min, max);
+    return distro(generator);
 }
 
-enum class LevelStatus { ONGOING, LOSING };
+enum class LevelStatus {
+    ONGOING, LOSING
+};
 
 enum class KeyCode {
-  NONE,
-  ENTER, // Enter
-  QUIT   // Esc
+    NONE,
+    ENTER, // Enter
+    QUIT   // Esc
 };
 
 const int WINDOW_WIDTH = 800;

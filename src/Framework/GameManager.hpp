@@ -11,45 +11,52 @@
 
 class GameManager {
 public:
-  // Meyers' singleton pattern
-  virtual ~GameManager() {}
-  GameManager(const GameManager& other) = delete;
-  GameManager& operator=(const GameManager& other) = delete;
-  static GameManager& Instance() { static GameManager instance; return instance; }
+    // Meyers' singleton pattern
+    virtual ~GameManager() {
+    }
 
-  void Play(int argc, char** argv, std::shared_ptr<WorldBase> world);
+    GameManager(const GameManager &other) = delete;
+    GameManager &operator=(const GameManager &other) = delete;
 
-  bool GetKey(KeyCode key) const;
-  bool GetKeyDown(KeyCode key);
+    static GameManager &Instance() {
+        static GameManager instance;
+        return instance;
+    }
 
-  void Update();
-  void Display();
+    void Play(int argc, char **argv, std::shared_ptr<WorldBase> world);
 
-  void KeyDownEvent(unsigned char key, int x, int y);
-  void KeyUpEvent(unsigned char key, int x, int y);
-  void SpecialKeyDownEvent(int key, int x, int y);
-  void SpecialKeyUpEvent(int key, int x, int y);
-  void MouseDownEvent(int x, int y);
+    bool GetKey(KeyCode key) const;
+    bool GetKeyDown(KeyCode key);
 
-  std::size_t DrawOneObject(ImageID imageID, AnimID animID, double x, double y, std::size_t frame) const;
+    void Update();
+    void Display();
+
+    void KeyDownEvent(unsigned char key, int x, int y);
+    void KeyUpEvent(unsigned char key, int x, int y);
+    void SpecialKeyDownEvent(int key, int x, int y);
+    void SpecialKeyUpEvent(int key, int x, int y);
+    void MouseDownEvent(int x, int y);
+
+    std::size_t DrawOneObject(ImageID imageID, AnimID animID, double x, double y, std::size_t frame) const;
 private:
-  enum class GameState{TITLE, ANIMATING, PROMPTING, GAMEOVER};
-  GameManager();
-  inline double NormalizeCoord(double pixels, double totalPixels) const;
-  inline int DenormalizeCoord(double normalizedCoord, double totalPixels) const;
-  inline void Rotate(double x, double y, double degrees, double& xout, double& yout) const;
-  void Prompt(const char* title, const char* subtitle) const;
-  void ShowZombiesWon() const;
+    enum class GameState {
+        TITLE, ANIMATING, PROMPTING, GAMEOVER
+    };
+    GameManager();
+    inline double NormalizeCoord(double pixels, double totalPixels) const;
+    inline int DenormalizeCoord(double normalizedCoord, double totalPixels) const;
+    inline void Rotate(double x, double y, double degrees, double &xout, double &yout) const;
+    void Prompt(const char *title, const char *subtitle) const;
+    void ShowZombiesWon() const;
 
-  inline KeyCode ToKeyCode(unsigned char key) const;
-  inline KeyCode SpecialToKeyCode(int key) const;
+    inline KeyCode ToKeyCode(unsigned char key) const;
+    inline KeyCode SpecialToKeyCode(int key) const;
 
-  GameState m_gameState;
-  std::shared_ptr<WorldBase> m_world;
+    GameState m_gameState;
+    std::shared_ptr<WorldBase> m_world;
 
-  std::map<KeyCode, bool> m_pressedKeys;
+    std::map<KeyCode, bool> m_pressedKeys;
 
-  bool m_pause;
-
+    bool m_pause;
 };
 #endif // !GAMEMANAGER_H__

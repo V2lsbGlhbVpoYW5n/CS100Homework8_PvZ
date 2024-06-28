@@ -1,7 +1,8 @@
 #include "Projectile.hpp"
 
 Projectile::Projectile(int imageID, int x, int y, int width, int height, pGameWorld gameWorld, ObjectTag tag, int SPD) :
-    GameObject(imageID, x, y, LAYER_PROJECTILES, width, height, ANIMID_NO_ANIMATION, std::move(gameWorld), tag), SPD(SPD) {
+    GameObject(imageID, x, y, LAYER_PROJECTILES, width, height, ANIMID_NO_ANIMATION, std::move(gameWorld), tag),
+    SPD(SPD) {
 }
 
 void Projectile::Update() {

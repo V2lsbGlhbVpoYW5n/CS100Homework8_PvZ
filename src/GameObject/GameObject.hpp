@@ -31,14 +31,14 @@ public:
 
     void Update() override = 0;
     void OnClick() override = 0;
-    virtual bool CheckCollide(pGameObejct other);
+    virtual bool CheckCollide(pGameObejct other) const;
     virtual bool OnCollide(pGameObejct other);
-    bool CanCollide();
+    bool CanCollide() const;
 
-    bool GetDead();
+    bool GetDead() const;
 
-    ObjectTag GetTag();
-    bool HasTag(ObjectTag tag);
+    ObjectTag GetTag() const;
+    bool HasTag(ObjectTag tag) const;
 
 protected:
     void Die();

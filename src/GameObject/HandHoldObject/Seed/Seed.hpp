@@ -17,10 +17,10 @@ public:
     void Update() override;
     void OnClick() override;
 
-    void ChangeCost(int costDelta);
-    void ChangeMaxCooldown(int MaxCooldownDelta);
+    //void ChangeCost(int costDelta);
+    //void ChangeMaxCooldown(int MaxCooldownDelta);
 
-    template<typename type> void MakePlant(int x, int y){
+    template<typename type> void MakePlant(int x, int y) {
         gameWorld->AddObject(std::make_shared<type>(x, y, gameWorld));
         ResetCooldown();
         CostSun();
@@ -30,9 +30,8 @@ private:
     const int ORIGINAL_COST;
     int cost = ORIGINAL_COST;
     int maxCooldown;
-    bool activatedAtBeginning;
     int cooldown;
-    bool CheckValid();
+    bool CheckValid() const;
     void ResetCooldown();
     void CostSun();
 };

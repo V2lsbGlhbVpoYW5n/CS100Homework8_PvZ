@@ -7,7 +7,7 @@ CooldownMask::CooldownMask(int x, int y, pGameWorld gameWorld, int livingTime) :
                                                                                             std::move(gameWorld),
                                                                                             ObjectTag::TAG_NONE),
                                                                                  livingTime(livingTime), cooldownText(
-        std::make_shared<TextBase>(x, y, std::to_string(livingTime), 255/255.0, 98/255.0, 57/255.0)) {
+        std::make_shared<TextBase>(x, y, std::to_string(livingTime), 255 / 255.0, 98 / 255.0, 57 / 255.0)) {
 }
 
 void CooldownMask::Update() {

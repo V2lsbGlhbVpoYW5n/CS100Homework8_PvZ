@@ -6,10 +6,10 @@
 class Background : public GameObject {
 public:
     Background(pGameWorld gameWorld);
-    Background(const Background& other) = delete;
-    Background(Background&& other) = delete;
-    Background& operator=(const Background& other) = delete;
-    Background& operator=(Background&& other) = delete;
+    Background(const Background &other) = delete;
+    Background(Background &&other) = delete;
+    Background &operator=(const Background &other) = delete;
+    Background &operator=(Background &&other) = delete;
     ~Background() override = default;
 
     void Update() override;

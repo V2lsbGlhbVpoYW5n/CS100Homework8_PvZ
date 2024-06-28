@@ -3,7 +3,7 @@
 
 #include "GameObject.hpp"
 
-class HandHoldObject : public GameObject{
+class HandHoldObject : public GameObject {
 public:
     HandHoldObject(int imageID, int x, int y, int width, int height, pGameWorld gameWorld, ObjectTag tag);
     HandHoldObject(const HandHoldObject &other) = delete;

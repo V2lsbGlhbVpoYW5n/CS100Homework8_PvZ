@@ -12,7 +12,7 @@ public:
     ~ZombieSpawner() = default;
 
     int Update(int wave);
-    int GetNextTimer(int wave);
+    static int GetNextTimer(int wave);
     void Reset();
 
 private:

@@ -13,6 +13,8 @@ add_library(
         Plant/Sunflower.cpp
         Interface/SunProducer.hpp
         Interface/SunProducer.cpp
+        Interface/ZombieSpawner.hpp
+        Interface/ZombieSpawner.cpp
         PlantingSpot.hpp
         PlantingSpot.cpp
         Sun.hpp
