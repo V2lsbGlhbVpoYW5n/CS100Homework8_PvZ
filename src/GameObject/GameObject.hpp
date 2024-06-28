@@ -38,7 +38,7 @@ public:
     bool GetDead() const;
 
     ObjectTag GetTag() const;
-    bool HasTag(ObjectTag tag) const;
+    bool HasTag(ObjectTag targetTag) const;
 
 protected:
     void Die();

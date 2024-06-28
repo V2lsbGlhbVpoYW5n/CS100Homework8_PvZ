@@ -9,9 +9,9 @@ public:
     bool Update();
 
 private:
-    int roundInterval;
-    int attackTimes;
     int attackInterval;
+    int attackTimes;
+    int roundInterval;
     int currentInterval = roundInterval;
     int currentTimes = 0;
 };

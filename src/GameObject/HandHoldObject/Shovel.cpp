@@ -5,7 +5,7 @@ Shovel::Shovel(pGameWorld gameWorld) :
     HandHoldObject(IMGID_SHOVEL, 600, WINDOW_HEIGHT - 40, 50, 50, std::move(gameWorld), ObjectTag::TAG_NONE) {
 }
 
-void Shovel::UseObject(int x, int y) {
+void Shovel::UseObject(int, int) {
     // Can be used for someday
     // Like return some sun
 }

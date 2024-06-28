@@ -35,6 +35,6 @@ ObjectTag GameObject::GetTag() const {
     return tag;
 }
 
-bool GameObject::HasTag(ObjectTag tag) const {
-    return this->tag == tag;
+bool GameObject::HasTag(ObjectTag targetTag) const {
+    return tag == targetTag;
 }
